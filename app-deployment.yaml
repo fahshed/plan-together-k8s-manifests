@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: next-frontend
+  template:
+    metadata:
+      labels:
+        app: next-frontend
+    spec:
+      containers:
+        - name: next-frontend
+          image: gcr.io/trip-planning-project/nextjs-frontend
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NEXT_PUBLIC_AUTH_SERVICE_URL
+              value: "http://auth-service"
+            - name: NEXT_PUBLIC_TRIP_SERVICE_URL
+              value: "http://trip-service"
+            - name: NEXT_PUBLIC_TRANSACTION_SERVICE_URL
+              value: "http://transaction-service"

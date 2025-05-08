@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: plan-together-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: next-frontend
+                port:
+                  number: 80
+          - path: /api/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 80
+          - path: /api/trips
+            pathType: Prefix
+            backend:
+              service:
+                name: trip-service
+                port:
+                  number: 80
+          - path: /api/transactions
+            pathType: Prefix
+            backend:
+              service:
+                name: transaction-service
+                port:
+                  number: 80

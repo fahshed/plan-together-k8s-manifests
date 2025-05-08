@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction-service
+  template:
+    metadata:
+      labels:
+        app: transaction-service
+    spec:
+      containers:
+        - name: transaction
+          image: gcr.io/trip-planning-project/transaction-service
+          ports:
+            - containerPort: 3003
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: STORAGE_BUCKET
+              value: "plan-together-receipts"
+            - name: AUTH_SERVICE_URL
+              value: "http://auth-service"
+            - name: PORT
+              value: "3003"
